@@ -3,72 +3,34 @@ import { useState } from 'react';
 import Editor from "@monaco-editor/react";
 
 const Exercises = () => {
-  const [code, setCode] = useState('');
-  const [Riacontro, setRiscontro] = useState('');
-
-    const handleSubmit = () => {
-        try{
-            if (code.includes('print("Ciao Mondo !") '|| 'print("Hello Word !")')){
-                setRiscontro('Corretto! Ottimo lavoro!');
-            }else {
-                setFeedback('Il codice non è corretto. Riprova!');
-            } } catch (error) {
-            setFeedback(`Errore: ${error.message}`);
-        }
-    };
+    const languages = [
+        { id: 'python', name: 'Python', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png' },
+        { id: 'javascript', name: 'JavaScript', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png' },
+        { id: 'html', name: 'HTML', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg' },
+        { id: 'css', name: 'CSS', logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg' },
+    ];
 
     return (
-        <Container fluid className="mt-4 p-4">
+        <Container className="mt-4">
+            <h1 className="text-center mb-4">Scegli un Linguaggio per gli Esercizi</h1>
             <Row>
-                {/* Colonna sinistra: Esercizio */}
-                <Col md={6}>
-                    <Card className="shadow-sm">
-                        <Card.Body>
-                            <Card.Title>Esercizio 1: Stampa "Ciao, Mondo!"</Card.Title>
-                            <Card.Text>
-                                Scrivi un programma che stampi "Ciao, Mondo!" nella console.
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-
-                {/* Colonna destra: Editor di codice */}
-                <Col md={6}>
-                    <Card className="shadow-sm">
-                        <Card.Body>
-                            <Editor
-                                height="300px"
-                                language="python"
-                                value={code}
-                                onChange={(value) => setCode(value || '')}
-                            />
-                            <Button
-                                variant="primary"
-                                className="mt-3"
-                                onClick={handleSubmit}
-                                aria-label="Esegui codice"
-                            >
-                                Esegui
-                            </Button>
-                            <Button
-                                variant="outline-secondary"
-                                className="mt-3 ms-2"
-                                onClick={() => setCode('')}
-                                aria-label="Resetta codice"
-                            >
-                                Resetta
-                            </Button>
-                            {feedback && (
-                                <Alert variant={feedback.includes('Corretto') ? 'success' : 'danger'} className="mt-3">
-                                    {feedback}
-                                </Alert>
-                            )}
-                        </Card.Body>
-                    </Card>
-                </Col>
+                {languages.map((lang) => (
+                    <Col key={lang.id} md={3} className="mb-4">
+                        {/* Link alla pagina degli esercizi specifica per il linguaggio */}
+                        <Link to={`/exercises/${lang.id}`} style={{ textDecoration: 'none' }}>
+                            <Card className="shadow-sm text-center">
+                                {/* Logo del linguaggio */}
+                                <Card.Img variant="top" src={lang.logo} style={{ height: '100px', objectFit: 'contain', padding: '10px' }} />
+                                <Card.Body>
+                                    {/* Nome del linguaggio */}
+                                    <Card.Title>{lang.name}</Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </Link>
+                    </Col>
+                ))}
             </Row>
         </Container>
     );
 };
-
 export default Exercises;

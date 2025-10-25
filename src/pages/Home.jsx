@@ -8,7 +8,7 @@ const Home = () => {
         <Container className="mt-4">
             <Card className="shadow-sm">
                 <Card.Body>
-                    <Card.Title>Benvenuto su Learn Programming!</Card.Title>
+                    <Card.Title>Benvenuto su Learn Loop!</Card.Title>
                     <Card.Text>
                         Esplora le guide e pratica con gli esercizi per imparare a programmare.
                     </Card.Text>
